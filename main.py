@@ -55,11 +55,18 @@ with st.form(key='load'):
     load = st.form_submit_button('load')
 
 if load:
-    loader = GitLoader(
-        clone_url=url,
-        repo_path=path,
-        branch=branch,
-        file_filter=lambda file_path: file_path.endswith(extention))
+    try:
+        loader = GitLoader(
+            clone_url=url,
+            repo_path=path,
+            branch=branch,
+            file_filter=lambda file_path: file_path.endswith(extention))
+    except:
+        loader = GitLoader(
+            repo_path=path,
+            branch=branch,
+            file_filter=lambda file_path: file_path.endswith(extention))
+
     documents = loader.load()
     qa = load_chain(documents)
     user_input = get_text()
