@@ -69,13 +69,17 @@ if load:
                 file_filter=lambda file_path: file_path.endswith(extention))
             documents = loader.load()
             qa = load_chain(documents)
-            st.session_state['qa'] = qa
         except:
-            pass
+            loader = GitLoader(
+                repo_path=path,
+                branch=branch,
+                file_filter=lambda file_path: file_path.endswith(extention))
+            documents = loader.load()
+            qa = load_chain(documents)
             
         chat_history = []
         prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier. User: '
-        result = st.session_state['qa']({"question": prefix + user_input, "chat_history": chat_history})
+        result = qa({"question": prefix + user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result['answer'])
     
