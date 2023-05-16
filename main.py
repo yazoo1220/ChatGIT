@@ -62,9 +62,8 @@ if load:
             branch=branch,
             file_filter=lambda file_path: file_path.endswith(extention))
     except:
-        loader = GitLoader(
-            file_filter=lambda file_path: file_path.endswith(extention))
-
+        pass
+    
     documents = loader.load()
     qa = load_chain(documents)
     user_input = get_text()
