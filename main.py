@@ -60,7 +60,7 @@ if load:
         branch=branch,
         file_filter=lambda file_path: file_path.endswith(extention))
     documents = loader.load()
-    qa = load_chain(urls.split(","))
+    qa = load_chain(documents)
     user_input = get_text()
     ask_button = st.button('ask')
 else:
@@ -70,13 +70,11 @@ language = st.selectbox('language',['English','日本語','Estonian'])
 
 if ask_button:
     chat_history = []
-    prefix = f'You are the best explainer. please answer in {language}. User: '
+    prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier.  please answer in {language}. User: '
     result = qa({"question": prefix + user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result['answer'])
-    # chat_history.append(user_input)
-    # chat_history.append(result)
-
+    
 if st.session_state["generated"]:
 
     for i in range(len(st.session_state["generated"]) - 1, -1, -1):
