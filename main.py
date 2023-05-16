@@ -61,10 +61,10 @@ if load:
             repo_path=path,
             branch=branch,
             file_filter=lambda file_path: file_path.endswith(extention))
+        documents = loader.load()
     except:
         pass
     
-    documents = loader.load()
     qa = load_chain(documents)
     user_input = get_text()
     ask_button = st.button('ask')
