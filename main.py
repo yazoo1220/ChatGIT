@@ -52,6 +52,7 @@ with st.form(key='load'):
     path = st.text_input('repo path', './example_data/test_repo2/')
     branch = st.text_input('branch', 'master')
     extention = st.text_input('extention filter', '.py')
+    user_input = get_text()
     load = st.form_submit_button('load')
 
 if load:
@@ -70,19 +71,12 @@ if load:
         documents = loader.load()
     
     qa = load_chain(documents)
-    user_input = get_text()
-    ask_button = st.button('ask')
-else:
-    pass
-
-language = st.selectbox('language',['English','日本語','Estonian'])
-
-if ask_button:
     chat_history = []
-    prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier.  please answer in {language}. User: '
+    prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier. User: '
     result = qa({"question": prefix + user_input, "chat_history": chat_history})
     st.session_state.past.append(user_input)
     st.session_state.generated.append(result['answer'])
+    
     
 if st.session_state["generated"]:
 
