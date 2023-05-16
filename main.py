@@ -63,8 +63,6 @@ if load:
             file_filter=lambda file_path: file_path.endswith(extention))
     except:
         loader = GitLoader(
-            repo_path=path,
-            branch=branch,
             file_filter=lambda file_path: file_path.endswith(extention))
 
     documents = loader.load()
