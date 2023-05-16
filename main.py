@@ -38,6 +38,7 @@ st.set_page_config(page_title="🔗😽ChatGIT", page_icon="🔗😽")
 st.header("🔗😽 ChatGIT")
 
 is_gpt4 = st.checkbox('Enable GPT4',help="With this it might get slower")
+ask_button = ''
 
 if "generated" not in st.session_state:
     st.session_state["generated"] = []
