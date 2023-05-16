@@ -49,7 +49,7 @@ st.write('Please enter the repository url and the path. if needed, please specif
 with st.form(key='load'):
     url = st.text_input('clone url','https://github.com/hwchase17/langchain')
     path = st.text_input('repo path', './example_data/test_repo2/')
-    branch = st.text('branch', 'master')
+    branch = st.text_input('branch', 'master')
     extention = st.text_input('extention filter', '.py')
     load = st.form_submit_button('load')
 
