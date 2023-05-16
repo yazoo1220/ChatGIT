@@ -3,3 +3,5 @@ openai
 tiktoken
 faiss-cpu
 GitPython
+streamlit
+streamlit_chat
