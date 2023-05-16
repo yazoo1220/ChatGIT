@@ -46,14 +46,14 @@ if "past" not in st.session_state:
     st.session_state["past"] = []
 
 st.write('Please enter the repository url and the path. if needed, please specify the file type to treat. otherwise it will read all the documents')
-with st.form(key='ask'):
+with st.form(key='load'):
     url = st.text_input('clone url','https://github.com/hwchase17/langchain')
     path = st.text_input('repo path', './example_data/test_repo2/')
     branch = st.text('branch', 'master')
     extention = st.text_input('extention filter', '.py')
-    st.form_submit_button('ask')
+    load = st.form_submit_button('load')
 
-if ask:
+if load:
     loader = GitLoader(
         clone_url=url,
         repo_path=path,
