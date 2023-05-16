@@ -45,6 +45,9 @@ if "generated" not in st.session_state:
 
 if "past" not in st.session_state:
     st.session_state["past"] = []
+    
+if 'qa' not in st.session_state:
+    st.session_state['qa'] = None 
 
 st.write('Please enter the repository url and the path. if needed, please specify the file type to treat. otherwise it will read all the documents')
 with st.form(key='load'):
@@ -54,6 +57,7 @@ with st.form(key='load'):
     extention = st.text_input('extention filter', '.py')
     user_input = get_text()
     load = st.form_submit_button('ask')
+    
 
 if load:
     with st.spinner('typing...'):
@@ -64,17 +68,14 @@ if load:
                 branch=branch,
                 file_filter=lambda file_path: file_path.endswith(extention))
             documents = loader.load()
+            qa = load_chain(documents)
+            st.session_state['qa'] = qa
         except:
-            loader = GitLoader(
-                repo_path=path,
-                branch=branch,
-                file_filter=lambda file_path: file_path.endswith(extention))
-            documents = loader.load()
-    
-        qa = load_chain(documents)
+            pass
+            
         chat_history = []
         prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier. User: '
-        result = qa({"question": prefix + user_input, "chat_history": chat_history})
+        result = st.session_state['qa']({"question": prefix + user_input, "chat_history": chat_history})
         st.session_state.past.append(user_input)
         st.session_state.generated.append(result['answer'])
     
