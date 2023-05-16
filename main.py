@@ -53,24 +53,24 @@ with st.form(key='load'):
     branch = st.text_input('branch', 'master')
     extention = st.text_input('extention filter', '.py')
     user_input = get_text()
-    load = st.form_submit_button('load')
+    load = st.form_submit_button('ask')
 
 if load:
-    try:
-        loader = GitLoader(
-            clone_url=url,
-            repo_path=path,
-            branch=branch,
-            file_filter=lambda file_path: file_path.endswith(extention))
-        documents = loader.load()
-    except:
-        loader = GitLoader(
-            repo_path=path,
-            branch=branch,
-            file_filter=lambda file_path: file_path.endswith(extention))
-        documents = loader.load()
-    
     with st.spinner('typing...'):
+        try:
+            loader = GitLoader(
+                clone_url=url,
+                repo_path=path,
+                branch=branch,
+                file_filter=lambda file_path: file_path.endswith(extention))
+            documents = loader.load()
+        except:
+            loader = GitLoader(
+                repo_path=path,
+                branch=branch,
+                file_filter=lambda file_path: file_path.endswith(extention))
+            documents = loader.load()
+    
         qa = load_chain(documents)
         chat_history = []
         prefix = f'You are the best coding coach. please answer the question of the user. if possible, give some coffee examples so that they can understand easier. User: '
