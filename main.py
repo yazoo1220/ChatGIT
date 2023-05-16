@@ -45,7 +45,7 @@ if "generated" not in st.session_state:
 if "past" not in st.session_state:
     st.session_state["past"] = []
 
-st.write('Please enter the repository url and the path. if needed, please specify the file type to treat. otherwise it will read all the documents)
+st.write('Please enter the repository url and the path. if needed, please specify the file type to treat. otherwise it will read all the documents')
 with st.form(key='ask'):
     url = st.text_input('clone url','https://github.com/hwchase17/langchain')
     path = st.text_input('repo path', './example_data/test_repo2/')
