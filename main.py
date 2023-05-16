@@ -51,7 +51,7 @@ with st.form(key='ask'):
     path = st.text_input('repo path', './example_data/test_repo2/')
     branch = st.text('branch', 'master')
     extention = st.text_input('extention filter', '.py')
-    st.form_submit_button = 'ask'
+    st.form_submit_button('ask')
 
 if ask:
     loader = GitLoader(
